@@ -1,5 +1,7 @@
 import scraperwiki
 import lxml.html
+import re
+# import pprint
 
 # Scrape data from National Governors Association
 html = scraperwiki.scrape("http://www.nga.org/cms/home/governors/staff-directories--contact-infor/col2-content/governors-office-addresses-and-w.html")
@@ -11,24 +13,30 @@ for e in elements:
     lines = e.text_content().replace('\t', '').split('\n')
 
     gov = {}
-    # enumerate over lines with index, so we can roll back
-    rollback = 0
     for index, line in enumerate(lines):
         if index == 0:
-            gov['state'] = line
+            gov['state_name'] = line
         if index == 1:
             gov['name'] = line.replace('Office of Governor ', '')
         if index == 2:
             gov['address_1'] = line
-        if index - rollback == 3:
-            if ',' in line:
-                gov['city_state_zip'] = line
+        if index in [3, 4, 5]:
+            if re.search('[\d]{5}', line):
+                # city, state, zip
+                address_parts = line.split(',')
+                gov['city'] = ','.join(address_parts[0:1])
+                zip_parts = address_parts[-1].split(' ')
+                gov['state'] = zip_parts[1]
+                gov['zip'] = zip_parts[-1]
             else:
-                gov['address_2'] = line
-                rollback = 1  # roll back one line
-        if index - rollback == 4:
+                if ('Phone' not in line
+                and 'Fax' not in line
+                and 'website' not in line):
+                    gov['address_2'] = line
+
+        if line.startswith('Phone'):
             gov['phone'] = line.replace('Phone: ', '').replace('/', '-')
-        if index - rollback == 5:
+        if line.startswith('Fax'):
             gov['fax'] = line.replace('Fax: ', '').replace('/', '-')
 
     # do url parsing outside of line block
@@ -39,4 +47,6 @@ for e in elements:
 
     governors.append(gov)
 
+# pp = pprint.PrettyPrinter()
+# pp.pprint(governors)
 scraperwiki.sqlite.save(unique_keys=['state'], data=governors)
