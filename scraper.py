@@ -45,6 +45,10 @@ for e in elements:
     except IndexError:
         pass
 
+    # cleanup aura
+    if gov['state'] == 'CA':
+        gov['name'] = gov['name'].replace('Edmund Brown', 'Jerry Brown')
+
     governors.append(gov)
 
 # pp = pprint.PrettyPrinter()
