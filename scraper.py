@@ -35,9 +35,9 @@ for e in elements:
                     gov['address_2'] = line
 
         if line.startswith('Phone'):
-            gov['phone'] = line.replace('Phone: ', '').replace('/', '-')
+            gov['phone'] = line.replace('Phone: ', '').replace('/', '-').replace(' ', '').replace('011', '+011')
         if line.startswith('Fax'):
-            gov['fax'] = line.replace('Fax: ', '').replace('/', '-')
+            gov['fax'] = line.replace('Fax: ', '').replace('/', '-').replace('011', '+011')
 
     # do url parsing outside of line block
     try:
