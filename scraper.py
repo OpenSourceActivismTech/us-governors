@@ -1,24 +1,27 @@
-# This is a template for a Python scraper on morph.io (https://morph.io)
-# including some code snippets below that you should find helpful
+import scraperwiki
+import lxml.html
 
-# import scraperwiki
-# import lxml.html
-#
-# # Read in a page
-# html = scraperwiki.scrape("http://foo.com")
-#
-# # Find something on the page using css selectors
-# root = lxml.html.fromstring(html)
-# root.cssselect("div[align='left']")
-#
-# # Write out to the sqlite database using scraperwiki library
-# scraperwiki.sqlite.save(unique_keys=['name'], data={"name": "susan", "occupation": "software developer"})
-#
-# # An arbitrary query against the database
-# scraperwiki.sql.select("* from data where 'name'='peter'")
+# Scrape data from National Governors Association
+html = scraperwiki.scrape("http://www.nga.org/cms/home/governors/staff-directories--contact-infor/col2-content/governors-office-addresses-and-w.html")
+root = lxml.html.fromstring(html)
+elements = root.cssselect("table td p")
 
-# You don't have to do things with the ScraperWiki and lxml libraries.
-# You can use whatever libraries you want: https://morph.io/documentation/python
-# All that matters is that your final data is written to an SQLite database
-# called "data.sqlite" in the current working directory which has at least a table
-# called "data".
+governors = []
+for e in elements:
+    lines = e.text_content().replace('\t', '').split('\n')
+    gov = {}
+    gov['state'] = lines[0]
+    gov['name'] = lines[1].replace('Office of ', '')
+    gov['address_1'] = lines[2]
+    gov['address_2'] = lines[3]
+    gov['city_state'] = lines[4]
+    gov['phone'] = lines[5].replace('Phone: ', '').replace('/', '-')
+    try:
+        gov['fax'] = lines[6].replace('Fax: ', '').replace('/', '-')
+        gov['website'] = lines[7]
+    except IndexError:
+        pass
+
+    governors.append(gov)
+
+scraperwiki.sqlite.save(unique_keys=['state'], data=governors)
