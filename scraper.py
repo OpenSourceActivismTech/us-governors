@@ -17,7 +17,11 @@ for e in elements:
         if index == 0:
             gov['state_name'] = line
         if index == 1:
-            gov['name'] = line.replace('Office of Governor ', '')
+            name = line.replace('Office of ', '')
+            name_parts = name.split(' ')
+            gov['title'] = name_parts[0]
+            gov['first_name'] = ' '.join(name_parts[1:-1])
+            gov['last_name'] = name_parts[-1]
         if index == 2:
             gov['address_1'] = line
         if index in [3, 4, 5]:
@@ -47,7 +51,7 @@ for e in elements:
 
     # cleanup aura
     if gov['state'] == 'CA':
-        gov['name'] = gov['name'].replace('Edmund Brown', 'Jerry Brown')
+        gov['first_name'] = gov['first_name'].replace('Edmund', 'Jerry')
 
     governors.append(gov)
 
