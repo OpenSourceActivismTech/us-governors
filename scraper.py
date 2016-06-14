@@ -11,16 +11,27 @@ for e in elements:
     lines = e.text_content().replace('\t', '').split('\n')
 
     gov = {}
-    gov['state'] = lines[0]
-    gov['name'] = lines[1].replace('Office of Governor ', '')
-    gov['address_1'] = lines[2]
-    gov['address_2'] = lines[3]
-    gov['city_state_zip'] = lines[4]
-    gov['phone'] = lines[5].replace('Phone: ', '').replace('/', '-')
-    try:
-        gov['fax'] = lines[6].replace('Fax: ', '').replace('/', '-')
-    except IndexError:
-        pass
+    # enumerate over lines with index, so we can roll back
+    rollback = 0
+    for index, line in enumerate(lines):
+        if index == 0:
+            gov['state'] = line
+        if index == 1:
+            gov['name'] = line.replace('Office of Governor ', '')
+        if index == 2:
+            gov['address_1'] = line
+        if index - rollback == 3:
+            if ',' in line:
+                gov['city_state_zip'] = line
+            else:
+                gov['address_2'] = line
+                rollback = 1  # roll back one line
+        if index - rollback == 4:
+            gov['phone'] = line.replace('Phone: ', '').replace('/', '-')
+        if index - rollback == 5:
+            gov['fax'] = line.replace('Fax: ', '').replace('/', '-')
+
+    # do url parsing outside of line block
     try:
         gov['url'] = e.cssselect('a')[0].attrib['href']
     except IndexError:
