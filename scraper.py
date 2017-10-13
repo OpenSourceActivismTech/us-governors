@@ -1,7 +1,7 @@
 import scraperwiki
 from bs4 import BeautifulSoup
 import re
-# import pprint
+import csv, json
 
 # Scrape data from National Governors Association
 html = scraperwiki.scrape("https://www.nga.org/cms/governors/addresses")
@@ -33,14 +33,28 @@ for gov_div in soup.select('.article-body .col-sm-6.col-md-4'):
         gov_data['address1'] = lines[0]
     else:
         gov_data['address1'], gov_data['address2'] = lines
-        
 
     # cleanup aura
-    if gov_data['state_name'] == 'CA':
+    if gov_data['state_name'] == 'California':
         gov_data['first_name'] = gov_data['first_name'].replace('Edmund', 'Jerry')
 
     governors.append(gov_data)
 
-# pp = pprint.PrettyPrinter()
-# pp.pprint(governors)
+# SQLlite export
 scraperwiki.sqlite.save(unique_keys=['state_name'], data=governors)
+
+# CSV export
+with open('data.csv', 'w') as f:
+    writer = csv.DictWriter(f, fieldnames=['state_name', 'first_name', 'last_name',
+                                           'address1', 'address2',
+                                           'city', 'state_abbr', 'zip',
+                                           'phone', 'fax', 'url'])
+
+    writer.writeheader()
+    for gov in governors:
+        row = {k:v.encode('utf8') for k,v in gov.items()}
+        writer.writerow(row)
+
+# JSON export
+with open('data.json', 'w') as f:
+    json.dump(governors, f, sort_keys=True, indent=4)
