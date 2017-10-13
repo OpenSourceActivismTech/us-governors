@@ -1,60 +1,46 @@
 import scraperwiki
-import lxml.html
+from bs4 import BeautifulSoup
 import re
 # import pprint
 
 # Scrape data from National Governors Association
-html = scraperwiki.scrape("http://www.nga.org/cms/home/governors/staff-directories--contact-infor/col2-content/governors-office-addresses-and-w.html")
-root = lxml.html.fromstring(html)
-elements = root.cssselect("table td p")
+html = scraperwiki.scrape("https://www.nga.org/cms/governors/addresses")
+soup = BeautifulSoup(html, "html5lib")
 
 governors = []
-for e in elements:
-    lines = e.text_content().replace('\t', '').split('\n')
+for gov_div in soup.select('.article-body .col-sm-6.col-md-4'):
 
-    gov = {}
-    for index, line in enumerate(lines):
-        if index == 0:
-            gov['state_name'] = line
-        if index == 1:
-            name = line.replace('Office of ', '')
-            name_parts = name.split(' ')
-            gov['title'] = name_parts[0]
-            gov['first_name'] = ' '.join(name_parts[1:-1])
-            gov['last_name'] = name_parts[-1]
-        if index == 2:
-            gov['address_1'] = line
-        if index in [3, 4, 5]:
-            if re.search('[\d]{5}', line):
-                # city, state, zip
-                address_parts = line.split(',')
-                gov['city'] = ','.join(address_parts[0:1])
-                zip_parts = address_parts[-1].split(' ')
-                gov['state'] = zip_parts[1]
-                gov['zip'] = zip_parts[-1]
-            else:
-                if ('Phone' not in line
-                and 'Fax' not in line
-                and 'website' not in line):
-                    gov['address_2'] = line
+    lines = gov_div.find('p').text.split('\n')
+    gov_data = {'state_name': gov_div.find('h3').text}
 
-        if line.startswith('Phone'):
-            gov['phone'] = line.replace('Phone: ', '').replace('/', '-').replace(' ', '').replace('011', '+011')
-        if line.startswith('Fax'):
-            gov['fax'] = line.replace('Fax: ', '').replace('/', '-').replace('011', '+011')
+    if lines[0].startswith('Office of Governor'):
+        gov_data['first_name'], gov_data['last_name'] = lines.pop(0).replace('Office of Governor ', '').rsplit(' ', 1)
 
-    # do url parsing outside of line block
-    try:
-        gov['url'] = e.cssselect('a')[0].attrib['href']
-    except IndexError:
-        pass
+    if 'Governor\'s website' in lines[-1]:
+        gov_data['url'] = gov_div.find('a')['href']
+        lines.pop(-1)
+
+    if 'Fax:' in lines[-1]:
+        gov_data['fax'] = lines.pop(-1).replace('Fax: ', '').replace('/', '-')
+
+    if 'Phone:' in lines[-1]:
+        gov_data['phone'] = lines.pop(-1).replace('Phone: ', '').replace('/', '-')
+
+    if re.search(r'\d{5}', lines[-1]):
+        gov_data['city'], gov_data['state_abbr'], gov_data['zip'] = re.match(r'(?P<city>.*)\,\s(?P<state_abbr>[A-Z]{2})\s(?P<zip>[\d\-]+)$', lines.pop(-1)).groups()
+
+    if len(lines) == 1:
+        gov_data['address1'] = lines[0]
+    else:
+        gov_data['address1'], gov_data['address2'] = lines
+        
 
     # cleanup aura
-    if gov['state'] == 'CA':
-        gov['first_name'] = gov['first_name'].replace('Edmund', 'Jerry')
+    if gov_data['state_name'] == 'CA':
+        gov_data['first_name'] = gov_data['first_name'].replace('Edmund', 'Jerry')
 
-    governors.append(gov)
+    governors.append(gov_data)
 
 # pp = pprint.PrettyPrinter()
 # pp.pprint(governors)
-scraperwiki.sqlite.save(unique_keys=['state'], data=governors)
+scraperwiki.sqlite.save(unique_keys=['state_name'], data=governors)
