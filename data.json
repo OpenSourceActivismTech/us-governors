@@ -28,7 +28,7 @@
     {
         "address1": "Executive Office Building", 
         "address2": "Third Floor", 
-        "city": "Utulei, Pago Pago", 
+        "city": "Pago Pago", 
         "fax": "011-684-633-2269", 
         "first_name": "Lolo Matalasi", 
         "last_name": "Moliga", 
@@ -66,7 +66,7 @@
     }, 
     {
         "address1": "State Capitol", 
-        "address2": "Sute 1173", 
+        "address2": "Suite 1173", 
         "city": "Sacramento", 
         "fax": "916-558-3160", 
         "first_name": "Jerry", 
@@ -253,7 +253,7 @@
         "zip": "70804-9004"
     }, 
     {
-        "address1": "#1 State House Station", 
+        "address1": "1 State House Station", 
         "city": "Augusta", 
         "fax": "207-287-1034", 
         "first_name": "Paul", 
@@ -366,6 +366,7 @@
     }, 
     {
         "address1": "Capitol Building", 
+        "address2": "101 N. Carson St.", 
         "city": "Carson City", 
         "fax": "775-684-5683", 
         "first_name": "Brian", 
@@ -394,8 +395,8 @@
         "address2": "P.O. Box 001", 
         "city": "Trenton", 
         "fax": "609-292-3454", 
-        "first_name": "Chris", 
-        "last_name": "Christie", 
+        "first_name": "Phil", 
+        "last_name": "Murphy", 
         "phone": "609-292-6000", 
         "state_abbr": "NJ", 
         "state_name": "New Jersey", 
@@ -491,8 +492,8 @@
         "zip": "73105"
     }, 
     {
-        "address1": "State Capitol, Room 160", 
-        "address2": "900 Court St. N.", 
+        "address1": "State Capitol", 
+        "address2": "900 Court St. NE, Suite 254", 
         "city": "Salem", 
         "fax": "503-378-8970", 
         "first_name": "Kate", 
@@ -554,7 +555,7 @@
         "zip": "29201"
     }, 
     {
-        "address1": "500 East Capitol Street", 
+        "address1": "500 East Capitol Avenue", 
         "city": "Pierre", 
         "fax": "605-773-4711", 
         "first_name": "Dennis", 
@@ -633,8 +634,8 @@
         "address2": "Third Floor", 
         "city": "Richmond", 
         "fax": "804-371-6351", 
-        "first_name": "Terry", 
-        "last_name": "McAuliffe", 
+        "first_name": "Ralph", 
+        "last_name": "Northam", 
         "phone": "804-786-2211", 
         "state_abbr": "VA", 
         "state_name": "Virginia", 
