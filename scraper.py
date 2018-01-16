@@ -9,9 +9,13 @@ soup = BeautifulSoup(html, "html5lib")
 
 governors = []
 for gov_div in soup.select('.article-body .col-sm-6.col-md-4'):
-
     lines = gov_div.find('p').text.split('\n')
-    gov_data = {'state_name': gov_div.find('h3').text}
+    headings = gov_div.find_all('h3')
+
+    gov_data = {}
+    for h in headings:
+        if h.text:
+            gov_data['state_name'] = h.text
 
     if lines[0].startswith('Office of Governor'):
         gov_data['first_name'], gov_data['last_name'] = lines.pop(0).replace('Office of Governor ', '').rsplit(' ', 1)
