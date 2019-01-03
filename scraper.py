@@ -4,13 +4,14 @@ import re
 import csv, json
 
 # Scrape data from National Governors Association
-html = scraperwiki.scrape("https://www.nga.org/cms/governors/addresses")
+ua = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11'
+html = scraperwiki.scrape("https://www.nga.org/governors/addresses/", user_agent=ua)
 soup = BeautifulSoup(html, "html5lib")
 
 governors = []
-for gov_div in soup.select('.article-body .col-sm-6.col-md-4'):
+for gov_div in soup.select('#primary .wpb_column.vc_col-sm-4'):
     lines = gov_div.find('p').text.split('\n')
-    headings = gov_div.find_all('h3')
+    headings = gov_div.find_all('h2')
 
     gov_data = {}
     for h in headings:
@@ -18,9 +19,10 @@ for gov_div in soup.select('.article-body .col-sm-6.col-md-4'):
             gov_data['state_name'] = h.text
 
     if lines[0].startswith('Office of Governor'):
-        gov_data['first_name'], gov_data['last_name'] = lines.pop(0).replace('Office of Governor ', '').rsplit(' ', 1)
+        full_name = lines.pop(0).replace('Office of Governor ', '').replace(u'\u201c', '"').replace(u'\u201d','"')
+        gov_data['first_name'], gov_data['last_name'] = full_name.rsplit(' ', 1)
 
-    if 'Governor\'s website' in lines[-1]:
+    if 'website' in lines[-1]:
         gov_data['url'] = gov_div.find('a')['href']
         lines.pop(-1)
 
@@ -39,7 +41,7 @@ for gov_div in soup.select('.article-body .col-sm-6.col-md-4'):
         gov_data['address1'], gov_data['address2'] = lines
 
     # cleanup aura
-    if gov_data['state_name'] == 'California':
+    if gov_data.get('state_name') == 'California':
         gov_data['first_name'] = gov_data['first_name'].replace('Edmund', 'Jerry')
 
     governors.append(gov_data)
