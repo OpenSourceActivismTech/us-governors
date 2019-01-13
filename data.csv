@@ -4,15 +4,15 @@ Alaska,Mike,Dunleavy,State Capitol,P.O. Box 110001,Juneau,AK,99811-0001,907-465-
 American Samoa,Lolo Matalasi,Moliga,Executive Office Building,Third Floor,Pago Pago,AS,96799,011-684-633-4116,011-684-633-2269,https://www.americansamoa.gov/office-of-the-governor
 Arizona,Doug,Ducey,State Capitol,1700 West Washington,Phoenix,AZ,85007,602-542-4331,602-542-7601,http://www.governor.state.az.us/
 Arkansas,Asa,Hutchinson,State Capitol,Room 250,Little Rock,AR,72201,501-682-2345,501-682-1382,http://www.arkansas.gov/governor/
-California,Jerry,Brown,State Capitol,Suite 1173,Sacramento,CA,95814,916-445-2841,916-558-3160,http://gov.ca.gov/
-Colorado,John,Hickenlooper,136 State Capitol,,Denver,CO,80203-1792,303-866-2471,303-866-2003,http://www.colorado.gov/governor/
-Connecticut,Dan,Malloy,210 Capitol Avenue,,Hartford,CT,06106,800-406-1527,860-524-7395,http://www.ct.gov/governor/
+California,Gavin,Newsom,State Capitol,Suite 1173,Sacramento,CA,95814,916-445-2841,916-558-3160,http://gov.ca.gov/
+Colorado,Jared,Polis,136 State Capitol,,Denver,CO,80203-1792,303-866-2471,303-866-2003,http://www.colorado.gov/governor/
+Connecticut,Ned,Lamont,210 Capitol Avenue,,Hartford,CT,06106,800-406-1527,860-524-7395,http://www.ct.gov/governor/
 Delaware,John,Carney,Legislative Hall,,Dover,DE,19901,302-744-4101,302-739-2775,http://governor.delaware.gov/
-Florida,Rick,Scott,PL 05 The Capitol,400 South Monroe Street,Tallahassee,FL,32399-0001,850-488-7146,850-487-0801,http://www.flgov.com/
+Florida,Ron,DeSantis,PL 05 The Capitol,400 South Monroe Street,Tallahassee,FL,32399-0001,850-488-7146,850-487-0801,http://www.flgov.com/
 Georgia,Nathan,Deal,203 State Capitol,,Atlanta,GA,30334,404-656-1776,404-657-7332,http://gov.georgia.gov/
-Guam,Eddie,Calvo,Executive Chamber,P.O. Box 2950,Agana,GU,96932,671-472-8931,671-477-4826,http://governor.guam.gov/
+Guam,Lou Leon,Guerrero,Executive Chamber,P.O. Box 2950,Agana,GU,96932,671-472-8931,671-477-4826,http://governor.guam.gov/
 Hawaii,David,Ige,Executive Chambers,State Capitol,Honolulu,HI,96813,808-586-0034,808-586-0006,http://www.hawaii.gov/gov/
-Idaho,"C.L ""Butch""",Otter,700 West Jefferson,Second Floor,Boise,ID,83702,208-334-2100,208-334-2175,http://gov.idaho.gov/
+Idaho,Brad,Little,700 West Jefferson,Second Floor,Boise,ID,83702,208-334-2100,208-334-2175,http://gov.idaho.gov/
 Illinois,Bruce,Rauner,State Capitol,207 Statehouse,Springfield,IL,62706,217-782-0244,217-524-4049,http://www.illinois.gov/gov/
 Indiana,Eric,Holcomb,State House,Room 206,Indianapolis,IN,46204-2797,317-232-4567,317-232-3443,http://www.in.gov/gov/index.htm
 Iowa,Kim,Reynolds,State Capitol,,Des Moines,IA,50319-0001,515-281-5211,515-281-6611,https://governor.iowa.gov/
@@ -23,12 +23,12 @@ Maine,Janet,Mills,1 State House Station,,Augusta,ME,04333,207-287-3531,207-287-1
 Maryland,Larry,Hogan,State House,100 State Circle,Annapolis,MD,21401,410-974-3901,410-974-3275,http://www.gov.state.md.us/
 Massachusetts,Charlie,Baker,State House,"Office of the Governor, Room 360",Boston,MA,02133,617-725-4005,617-727-9725,http://www.mass.gov/gov
 Michigan,Gretchen,Whitmer,P.O. Box 30013,,Lansing,MI,48909,517-373-3400,517-335-6863,http://www.michigan.gov/gov
-Minnesota,Mark,Dayton,130 State Capitol,"75 Rev. Dr. Martin Luther King, Jr. Boulevard",St. Paul,MN,55155,651-201-3400,651-797-1850,http://www.governor.state.mn.us/
+Minnesota,Tim,Walz,130 State Capitol,"75 Rev. Dr. Martin Luther King, Jr. Boulevard",St. Paul,MN,55155,651-201-3400,651-797-1850,http://www.governor.state.mn.us/
 Mississippi,Phil,Bryant,P.O. Box 139,,Jackson,MS,39205,601-359-3150,601-359-3741,http://www.governorbryant.com/
 Missouri,Mike,Parson,Capitol Building,"Room 216, P.O. Box 720",Jefferson City,MO,65102,573-751-3222,573-526-3291,http://governor.mo.gov/
 Montana,Steve,Bullock,State Capitol,,Helena,MT,59620-0801,406-444-3111,406-444-5529,http://governor.mt.gov/
 Nebraska,Pete,Ricketts,P.O. Box 94848,,Lincoln,NE,68509-4848,402-471-2244,402-471-6031,http://www.governor.nebraska.gov/
-Nevada,Brian,Sandoval,Capitol Building,101 N. Carson St.,Carson City,NV,89701,775-684-5670,775-684-5683,http://gov.nv.gov/
+Nevada,Steve,Sisolak,Capitol Building,101 N. Carson St.,Carson City,NV,89701,775-684-5670,775-684-5683,http://gov.nv.gov/
 New Hampshire,Chris,Sununu,Office of the Governor,"107 North Main Street, Room 208",Concord,NH,03301,603-271-2121,603-271-7640,http://www.state.nh.us/governor/
 New Jersey,Phil,Murphy,The State House,P.O. Box 001,Trenton,NJ,08625,609-292-6000,609-292-3454,http://www.state.nj.us/governor/
 New Mexico,Michelle Lujan,Grisham,State Capitol,Fourth Floor,Santa Fe,NM,87501,505-476-2200,505-476-2226,http://www.governor.state.nm.us/
@@ -43,14 +43,14 @@ Pennsylvania,Tom,Wolf,Room 225,Main Capitol Building,Harrisburg,PA,17120,717-787
 Puerto Rico,Ricardo,Rosselló,La Fortaleza,P.O. Box 9020082,San Juan,PR,00902-0082,787-721-7000,787-721-5072,http://www.fortaleza.pr.gov/
 Rhode Island,Gina,Raimondo,State House,,Providence,RI,02903,401-222-2080,401-222-8096,http://www.governor.state.ri.us/
 South Carolina,Henry,McMaster,1205 Pendleton Street,,Columbia,SC,29201,803-734-2100,803-734-5167,http://governor.sc.gov/
-South Dakota,Dennis,Daugaard,500 East Capitol Avenue,,Pierre,SD,57501,605-773-3212,605-773-4711,http://sd.gov/governor/
-Tennessee,Bill,Haslam,Tennessee State Capitol,,Nashville,TN,37243-0001,615-741-2001,615-532-9711,https://www.tn.gov/governor
+South Dakota,Kristi,Noem,500 East Capitol Avenue,,Pierre,SD,57501,605-773-3212,605-773-4711,http://sd.gov/governor/
+Tennessee,Bill,Lee,Tennessee State Capitol,,Nashville,TN,37243-0001,615-741-2001,615-532-9711,https://www.tn.gov/governor
 Texas,Greg,Abbott,P.O. Box 12428,,Austin,TX,78711,512-463-2000,512-463-5571,http://www.governor.state.tx.us/
 Utah,Gary R.,Herbert,Utah State Capitol,Suite 200,Salt Lake City,UT,84114,801-538-1000,801-538-1557,http://www.utah.gov/governor/
 Vermont,Phil,Scott,109 State Street,Pavilion Office Building,Montpelier,VT,05609,802-828-3333,802-828-3339,http://www.vermont.gov/governor/
-Virgin Islands,Kenneth,Mapp,"Government House, 21-22 Kongens Gade",Charlotte Amalie,St. Thomas,VI,00802,340-774-0001,340-693-4374,https://www.vi.gov/
+Virgin Islands,Albert,Bryan,"Government House, 21-22 Kongens Gade",Charlotte Amalie,St. Thomas,VI,00802,340-774-0001,340-693-4374,https://www.vi.gov/
 Virginia,Ralph,Northam,State Capitol,Third Floor,Richmond,VA,23219,804-786-2211,804-371-6351,http://www.governor.virginia.gov/
 Washington,Jay,Inslee,Office of the Governor,P.O. Box 40002,Olympia,WA,98504-0002,360-902-4111,360-753-4110,http://www.governor.wa.gov/
 West Virginia,Jim,Justice,1900 Kanawha Street,,Charleston,WV,25305,304-558-2000,,http://www.governor.wv.gov/
-Wisconsin,Scott,Walker,115 East State Capitol,,Madison,WI,53707,608-266-1212,608-267-8983,http://www.wisgov.state.wi.us/
-Wyoming,Matthew,Mead,State Capitol Building,Room 124,Cheyenne,WY,82002,307-777-7434,307-632-3909,http://governor.wy.gov/
+Wisconsin,Tony,Evers,115 East State Capitol,,Madison,WI,53707,608-266-1212,608-267-8983,http://www.wisgov.state.wi.us/
+Wyoming,Mark,Gordon,State Capitol Building,Room 124,Cheyenne,WY,82002,307-777-7434,307-632-3909,http://governor.wy.gov/
