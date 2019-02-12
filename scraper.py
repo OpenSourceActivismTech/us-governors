@@ -33,7 +33,9 @@ for gov_div in soup.select('#primary .wpb_column.vc_col-sm-4'):
         gov_data['phone'] = lines.pop(-1).replace('Phone: ', '').replace('/', '-').replace(' ', '')
 
     if re.search(r'\d{5}', lines[-1]):
-        gov_data['city'], gov_data['state_abbr'], gov_data['zip'] = re.match(r'(?P<city>.*)\,\s(?P<state_abbr>[A-Z]{2})\s(?P<zip>[\d\-]+)$', lines.pop(-1)).groups()
+        matched_city_state_zip = re.match(r'(?P<city>.*)\,\s(?P<state_abbr>[A-Z]{2})\s(?P<zip>[\d\-]+)$', lines.pop(-1))
+        if matched_city_state_zip:
+            gov_data['city'], gov_data['state_abbr'], gov_data['zip'] = matched_city_state_zip.groups()
 
     if len(lines) == 1:
         gov_data['address1'] = lines[0]
