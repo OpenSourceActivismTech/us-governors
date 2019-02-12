@@ -3,6 +3,11 @@ from bs4 import BeautifulSoup
 import re
 import csv, json
 
+US_STATES = dict((
+    ('AL', 'Alabama'), ('AK', 'Alaska'), ('AZ', 'Arizona'), ('AR', 'Arkansas'), ('CA', 'California'), ('CO', 'Colorado'), ('CT', 'Connecticut'), ('DE', 'Delaware'), ('DC', 'District of Columbia'), ('FL', 'Florida'), ('GA', 'Georgia'), ('HI', 'Hawaii'), ('ID', 'Idaho'), ('IL', 'Illinois'), ('IN', 'Indiana'), ('IA', 'Iowa'), ('KS', 'Kansas'), ('KY', 'Kentucky'), ('LA', 'Louisiana'), ('ME', 'Maine'), ('MD', 'Maryland'), ('MA', 'Massachusetts'), ('MI', 'Michigan'), ('MN', 'Minnesota'), ('MS', 'Mississippi'), ('MO', 'Missouri'), ('MT', 'Montana'), ('NE', 'Nebraska'), ('NV', 'Nevada'), ('NH', 'New Hampshire'), ('NJ', 'New Jersey'), ('NM', 'New Mexico'), ('NY', 'New York'), ('NC', 'North Carolina'), ('ND', 'North Dakota'), ('OH', 'Ohio'), ('OK', 'Oklahoma'), ('OR', 'Oregon'), ('PA', 'Pennsylvania'), ('RI', 'Rhode Island'), ('SC', 'South Carolina'), ('SD', 'South Dakota'), ('TN', 'Tennessee'), ('TX', 'Texas'), ('UT', 'Utah'), ('VT', 'Vermont'), ('VA', 'Virginia'), ('WA', 'Washington'), ('WV', 'West Virginia'), ('WI', 'Wisconsin'), ('WY', 'Wyoming'),
+    ('AS', 'American Samoa'), ('GU', 'Guam'), ('MP', 'Northern Mariana Islands'), ('PR', 'Puerto Rico'), ('VI', 'Virgin Islands'),
+))
+
 # Scrape data from National Governors Association
 ua = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11'
 html = scraperwiki.scrape("https://www.nga.org/governors/addresses/", user_agent=ua)
@@ -33,9 +38,22 @@ for gov_div in soup.select('#primary .wpb_column.vc_col-sm-4'):
         gov_data['phone'] = lines.pop(-1).replace('Phone: ', '').replace('/', '-').replace(' ', '')
 
     if re.search(r'\d{5}', lines[-1]):
-        matched_city_state_zip = re.match(r'(?P<city>.*)\,\s(?P<state_abbr>[A-Z]{2})\s(?P<zip>[\d\-]+)$', lines.pop(-1))
+        addr_line = lines.pop(-1)
+        matched_city_state_zip = re.match(r'(?P<city>.*)\,\s(?P<state_abbr>[A-Z]{2})\s(?P<zip>[\d\-]+)$', addr_line)
         if matched_city_state_zip:
             gov_data['city'], gov_data['state_abbr'], gov_data['zip'] = matched_city_state_zip.groups()
+        else:
+            # if regex doesn't match cleanly, split on space and re-assemble
+            addr_split = addr_line.split(' ')
+            gov_data['zip'] = addr_split[-1]
+            state = addr_split[-2]
+            if len(state) == 2:
+                gov_data['state_abbr'] = state
+            else:
+                gov_data['state_name'] = state
+                # invert US_STATES and look up abbr
+                gov_data['state_abbr'] = {v: k for k, v in US_STATES.iteritems()}[state]
+            gov_data['city'] = ' '.join(addr_split[:-2]).replace(',','')
 
     if len(lines) == 1:
         gov_data['address1'] = lines[0]

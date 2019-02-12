@@ -206,12 +206,15 @@
     {
         "address1": "State Capitol", 
         "address2": "1007 East Grand Ave.", 
+        "city": "Des Moines", 
         "fax": "515-281-6611", 
         "first_name": "Kim", 
         "last_name": "Reynolds", 
         "phone": "515-281-5211", 
+        "state_abbr": "IA", 
         "state_name": "Iowa", 
-        "url": "https://governor.iowa.gov/"
+        "url": "https://governor.iowa.gov/", 
+        "zip": "50319"
     }, 
     {
         "address1": "Capitol", 
