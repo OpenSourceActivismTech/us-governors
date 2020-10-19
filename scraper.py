@@ -28,7 +28,9 @@ for gov_div in soup.select('#primary .wpb_column.vc_col-sm-4'):
         gov_data['first_name'], gov_data['last_name'] = full_name.rsplit(' ', 1)
 
     if 'website' in lines[-1]:
-        gov_data['url'] = gov_div.find('a')['href']
+        urls = gov_div.find_all('a', href=True)
+        if urls:
+            gov_data['url'] = urls[0]['href']
         lines.pop(-1)
 
     if 'Fax:' in lines[-1]:
@@ -52,7 +54,7 @@ for gov_div in soup.select('#primary .wpb_column.vc_col-sm-4'):
             else:
                 gov_data['state_name'] = state
                 # invert US_STATES and look up abbr
-                gov_data['state_abbr'] = {v: k for k, v in US_STATES.iteritems()}[state]
+                gov_data['state_abbr'] = {v: k for k, v in US_STATES.items()}[state]
             gov_data['city'] = ' '.join(addr_split[:-2]).replace(',','')
 
     if len(lines) == 1:
@@ -60,17 +62,13 @@ for gov_div in soup.select('#primary .wpb_column.vc_col-sm-4'):
     else:
         gov_data['address1'], gov_data['address2'] = lines
 
-    # cleanup aura
-    if gov_data.get('state_name') == 'California':
-        gov_data['first_name'] = gov_data['first_name'].replace('Edmund', 'Jerry')
-
     governors.append(gov_data)
 
 # SQLlite export
 scraperwiki.sqlite.save(unique_keys=['state_name'], data=governors)
 
 # CSV export
-with open('data.csv', 'w') as f:
+with open('data.csv', 'w', encoding='utf-8') as f:
     writer = csv.DictWriter(f, fieldnames=['state_name', 'first_name', 'last_name',
                                            'address1', 'address2',
                                            'city', 'state_abbr', 'zip',
@@ -78,7 +76,7 @@ with open('data.csv', 'w') as f:
 
     writer.writeheader()
     for gov in governors:
-        row = {k:v.encode('utf8') for k,v in gov.items()}
+        row = {k:v for k,v in gov.items()}
         writer.writerow(row)
 
 # JSON export
